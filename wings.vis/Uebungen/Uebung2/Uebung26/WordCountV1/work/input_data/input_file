@@ -1,0 +1,195 @@
+Verteiltes System
+Zur Navigation springenZur Suche springen
+	
+Verteiltes Rechnen ist eine Weiterleitung auf diesen Artikel. Zum speziellen Begriff mit freiwilligen Teilnehmern siehe Volunteer-Computing.
+	
+Dieser Artikel oder Abschnitt bedarf einer Überarbeitung. Näheres sollte auf der Diskussionsseite angegeben sein. Bitte hilf mit, ihn zu verbessern, und entferne anschließend diese Markierung.
+Ein verteiltes System ist nach der Definition von Andrew S. Tanenbaum ein Zusammenschluss unabhängiger Computer, die sich für den Benutzer als ein einziges System präsentieren. Peter Löhr definiert es etwas grundlegender als „eine Menge interagierender Prozesse (oder Prozessoren), die über keinen gemeinsamen Speicher verfügen und daher über Nachrichten miteinander kommunizieren“. Das Teilgebiet in der Informatik, welches sich mit verteilten Systemen und deren Algorithmen beschäftigt, wird Verteiltes Rechnen oder Verteilte Verarbeitung (englisch distributed computing) genannt.[1]
+
+
+Inhaltsverzeichnis
+1	Klassifizierungen
+2	Gründe für den Einsatz verteilter Systeme
+3	Transparenz
+4	Probleme
+5	Modelle
+6	Algorithmen
+6.1	Algorithmen zur Uhren-Synchronisation
+6.2	Broadcastalgorithmen
+6.3	Auswahlalgorithmen
+6.4	Nebenläufigkeitskontrolle
+7	Siehe auch
+8	Literatur
+9	Weblinks
+10	Einzelnachweise
+Klassifizierungen[Bearbeiten | Quelltext bearbeiten]
+Meist unterscheidet man in
+
+Client-Server-System: Viele Clients greifen auf einen oder mehrere Server zu.
+Verteilte Anwendung: Durch die Programmierung der Anwendung wird das verteilte System erstellt.
+Verteiltes Betriebssystem: Das Betriebssystem selbst ist verteilt, für Benutzer und Anwendungen ist dies nicht sichtbar.
+Gründe für den Einsatz verteilter Systeme[Bearbeiten | Quelltext bearbeiten]
+Mit verteilten Systemen kann eine echte Nebenläufigkeit realisiert werden; das heißt, dass mehrere Prozesse gleichzeitig ausgeführt werden können. Darüber hinaus ist ein verteiltes System in der Regel auch besser skalierbar als ein einzelner Computer, da man auf einfache Art und Weise durch Hinzufügen weiterer Rechner die Leistungsfähigkeit erhöhen kann.
+
+Ein häufig anzutreffendes Szenario ist auch die Bereitstellung von entfernten Ressourcen, wie es bei der Wikipedia der Fall ist. Außerdem werden verteilte Systeme zur Erhöhung der Ausfallsicherheit benutzt, indem bestimmte Funktionalitäten von mehreren Rechnern angeboten werden (Redundanz), so dass beim Ausfall eines Rechners die gleiche Funktionalität von einem weiteren Rechner angeboten wird.
+
+In vielen Fällen gibt es auch wirtschaftliche Gründe, um preisgünstige Rechner zu vernetzen, statt einen teuren Supercomputer anzuschaffen. Dies machen sich beispielsweise Volunteer-Computing-Projekte wie SETI@home zunutze, die nicht benötigte Rechenleistung von Einzelplatzrechnern zur Lösung komplexer Probleme nutzen. Nachdem im März 2020 eines der ersten und größten öffentlichen Volunteer-Verteiltes System Projekte SETI@home sein Ende am 31. März 2020 bekannt gab[2][3][4] und aufgrund einer erhöhten Interesse durch die COVID-19-Pandemie, wird das Verteilte System Folding@home das erste Computing-System das ein exaFLOPS erreicht.[5][6][7] Das System simulierte Proteinfaltung für Forschungen zu COVID-19 und erreichte am 13. April eine Geschwindigkeit von ca. 2.43 x86 exaFLOPS – einige Male schneller als der vorherige Rekordhalter, Supercomputer Summit.[8]
+
+Weitere Gründe:[9]
+
+Fernzugriff auf bestimmte Ressourcen (Drucker, …)
+Kooperation (Computer Supported Cooperative Work)
+Lastverteilung
+Transparenz[Bearbeiten | Quelltext bearbeiten]
+→ Hauptartikel: Transparenz (Computersystem)
+Für den Benutzer sowie für die Applikation eines verteilten Systems ist die Art der Verteilung nicht relevant und idealerweise auch nicht ersichtlich. Das System verhält sich transparent (i. S. v. durchsichtig), als hätte der Nutzer es mit einem Gesamtsystem zu tun.
+
+Probleme[Bearbeiten | Quelltext bearbeiten]
+Da es bei verteilten Systemen zu einem Teilausfall kommen kann, von dem einzelne Rechner oder Teile des Netzwerkes betroffen sind, sollte darauf geachtet werden, dass es keinen Single Point of Failure im System gibt. Dabei ist zu bemerken, dass die Wahrscheinlichkeit eines Fehlverhaltens eines Prozesses mit der Anzahl der beteiligten Prozesse steigt (siehe Verfügbarkeit).
+
+Ein wichtiges Teilproblem davon ist, einen Teilausfall erst zu bemerken. Es existieren keine voll zufriedenstellenden Methoden, die einen Teilausfall erkennen und beheben können. Eine Möglichkeit wäre der Heartbeat oder ein regelmäßiges Anpingen der beteiligten Systeme. Diese Möglichkeiten sind jedoch nicht perfekt.
+
+In verteilten Systemen ist zwar eine echte Nebenläufigkeit möglich, allerdings können Prozesse in unterschiedlichen Geschwindigkeiten abgearbeitet werden. Eine hierdurch bedingte starke Form von Nicht-Determinismus erhöht die Anforderungen zur Synchronisierung von Prozessen. Aus diesem Grunde ist eine Nebenläufigkeitskontrolle meist sehr wichtig: Zum einen im Bezug auf Transaktionen und zum anderen beim Zugriff auf gemeinsame Ressourcen (Mutex). Außerdem kann es in verteilten Systemen immer Deadlocks geben.
+
+Gesamtzustände (Summe der Zustände aller beteiligten Prozesse) und Abläufe können in einem verteilten System oft im Nachhinein nicht nachvollzogen werden. Eine Diagnose im Fehlerfall wird hierdurch erschwert.
+
+Verteilte Systeme teilen sich keinen gemeinsamen Speicher und müssen ihre gesamte Kommunikation darum durch das Versenden und Empfangen von Nachrichten realisieren. Eine solche Kommunikation ist sehr fehleranfällig, so dass es zu Problemen durch Verfälschung von Nachrichten, Duplizierung von Nachrichten und den Verlust von Nachrichten kommen kann. Außerdem ist die Nachrichtenlaufzeit unvorhersehbar, so dass man nie mit Sicherheit vorhersehen kann, ob ein System ausgefallen ist oder ob es nur eine lange Antwortzeit hat.
+
+Ein weiteres Problem der Nachrichten ist, dass diese Art der Kommunikation unsicher sein kann, also durch Angreifer abgehört oder bewusst manipuliert werden kann, und über eine Infrastruktur laufen muss, die (wie das Internet) vielleicht nicht vollständig für Gruppen-basierte Kommunikation geeignet ist.
+
+Bei komplexen Prozessen ist es oft notwendig, einen gemeinsamen Zeitbegriff in der Datenverarbeitung zu realisieren (Synchronisierung ohne Prozess-Kommunikation). Hierfür muss sichergestellt werden, dass die jedem Prozess bekannte Zeit nur mit kleinen Abweichungen übereinstimmt. So lassen sich verteilte Transaktionen sicher durchführen, da hier mit Hilfe von Timeouts eine Veralterung ausgesendeter Nachrichten vermieden wird. (Siehe auch „Algorithmen zur Uhren-Synchronisation“ unten).
+
+Außerdem erschweren verteilte Systeme die (zentrale) Administration, besonders bei nicht-strukturierten Topologien. Je nach Anwendung treffen Millionen unterschiedlich konfigurierter Rechner aufeinander, die außerdem noch völlig fremden Personen gehören können.[10][11]
+
+Modelle[Bearbeiten | Quelltext bearbeiten]
+Bei verteilten Systemen geht man von unterschiedlichen Kommunikationsmodellen aus.
+
+Asynchrones Modell
+Prozesse haben im asynchronen Modell nur den Zustand aktiv und passiv. Nur ein aktiver Prozess versendet Nachrichten. Ein aktiver Prozess kann jederzeit passiv werden, wohingegen ein passiver Prozess nur durch eine Nachricht reaktiviert werden kann.
+Synchrones Modell
+Beim synchronen Modell haben Nachrichten selbst keine Laufzeit. Diese Verhaltensweise wird in der Praxis durch die Synchrone Kommunikation erreicht.
+Atommodell
+Beim Atommodell haben zwar die Nachrichten eine Laufzeit, allerdings haben die Prozesse selbst keine Laufzeit.
+Algorithmen[Bearbeiten | Quelltext bearbeiten]
+Algorithmen zur Uhren-Synchronisation[Bearbeiten | Quelltext bearbeiten]
+Logische Uhren
+Logische Uhren geben Ereignissen eindeutige Zeitstempel. Anders als bei Echtzeituhren ist der Anspruch hier nicht das Messen der physikalischen Zeit, sondern allein ein monoton steigender Zeitwert, um eine Kausalordnung der Ereignisse erkennbar zu machen.
+Mittelwert-Algorithmus
+Logische Zeitstempel nach Lamport
+Vektoruhr
+Physikalische Uhren-Synchronisation
+Algorithmus von Cristian
+Berkeley-Algorithmus
+Network Time Protocol
+Broadcastalgorithmen[Bearbeiten | Quelltext bearbeiten]
+Das Ziel eines Broadcasts ist die Verteilung einer Information im gesamten Netz.
+
+Beispiele:
+
+Flooding-Algorithmus
+Echo-Algorithmus
+Auswahlalgorithmen[Bearbeiten | Quelltext bearbeiten]
+Auswahlalgorithmen können in zwei Kategorien unterteilt werden: Algorithmen, die aus einer Menge von identischen Knoten einen eindeutigen Knoten auswählen und Maximumsalgorithmen, die aus einer Menge von Knoten mit eindeutiger ID den Knoten mit der größten ID auswählen.
+
+Beispiele:
+
+Bullyalgorithmus
+Nachrichtenauslöschung nach Chang und Roberts
+Randomisierte Auswahl in bidirektionalen Ringen
+Las Vegas-Auswahl für anonyme Ringe
+Hirschberg/Sinclair-Auswahlalgorithmus
+Wahlalgorithmus auf Bäumen
+Echo-Algorithmus
+Itai-Rodeh-Algorithmus (Auswahl auf anonymen unidirektionalen Ringen)
+Algorithmus von Peterson (Auswahl auf Ringen)
+Nebenläufigkeitskontrolle[Bearbeiten | Quelltext bearbeiten]
+Locking/Mutex Algorithmen
+Serverbasierte Mutex
+Token Ring
+Ricart-Agrawala-Algorithmus
+Maekawa-Algorithmus (Voting-Sets)
+Siehe auch[Bearbeiten | Quelltext bearbeiten]
+Schnappschussalgorithmus
+CORBA
+RPC
+Cloud-Computing
+Grid-Computing
+Plan 9 (Betriebssystem)
+Rainbow (Betriebssystem)
+Erlang (Programmiersprache)
+CAP-Theorem
+Literatur[Bearbeiten | Quelltext bearbeiten]
+Günther Bengel, Christian Baun, Marcel Kunze, Karl-Uwe Stucky: Masterkurs Parallele und Verteilte Systeme. Vieweg+Teubner, 2008, ISBN 978-3-8348-0394-8.
+Andrew S. Tanenbaum, Maarten van Steen: Verteilte Systeme. 2., aktualisierte Auflage, Pearson Studium, 2007, ISBN 978-3-8273-7293-2.
+Günther Bengel: Verteilte Systeme. 3. Auflage, Vieweg, Braunschweig 2004, ISBN 3-528-25738-5.
+George Coulouris, Jean Dollimore, Tim Kindberg: Distributed Systems: Concepts and Design. Addison-Wesley Longman, Amsterdam; 4. Auflage (14. Juni 2005), ISBN 0-321-26354-5.
+Weblinks[Bearbeiten | Quelltext bearbeiten]
+Folien und Video der Vorlesung „Verteilte Systeme“ an der TU Braunschweig
+Einzelnachweise[Bearbeiten | Quelltext bearbeiten]
+↑ Hagit Attiya, Jennifer Welch: Distributed Computing: Fundamentals, Simulations, and Advanced Topics. Wiley Series on Parallel and Distributed Computing. John Wiley & Sons, 2004, ISBN 978-0-471-45324-6, S. 2 (Übersetzung des Begriffs „Distributed Computing“ nach Masterkurs Parallele und Verteilte Systeme, S. 25).
+↑ Astronomers no longer need your personal computers to search for alien life. Abgerufen am 6. April 2020. 
+↑ John Timmer: The grandfather of distributed computing projects, SETI@home, shuts down (en-us). In: Ars Technica, 5. März 2020. Abgerufen am 6. April 2020. 
+↑ Final data is in the splitter queue.. In: setiathome.berkeley.edu. Abgerufen am 6. April 2020.
+↑ Folding@Home Crushes Exascale Barrier, Now Faster Than Dozens of Supercomputers - ExtremeTech. In: www.extremetech.com. Abgerufen am 13. Mai 2020. 
+↑ Folding@home crowdsourced computing project passes 1 million downloads amid coronavirus research. In: VentureBeat, 31. März 2020. Abgerufen am 13. Mai 2020. 
+↑ The coronavirus pandemic turned Folding@Home into an exaFLOP supercomputer (en-us). In: Ars Technica, 14. April 2020. Abgerufen am 13. Mai 2020. 
+↑ Liam Tung: CERN throws 10,000 CPU cores at Folding@home coronavirus simulation project (en). In: ZDNet. Abgerufen am 13. Mai 2020. 
+↑ Distributed Systems Principles (PDF; 78 kB)
+↑ Andrew Warfield, Yvonne Coady, and Norm Hutchinson: Identifying Open Problems In Distributed Systems (PDF; 40 kB)
+↑ Security Engineering: A Guide to Building Dependable Distributed Systems, Kapitel 6 (PDF; 568 kB)
+Normdaten (Sachbegriff): GND: 4238872-7
+Kategorien: Verteiltes SystemRechnernetze
+Navigationsmenü
+Nicht angemeldet
+Diskussionsseite
+Beiträge
+Benutzerkonto erstellen
+Anmelden
+ArtikelDiskussion
+LesenBearbeitenQuelltext bearbeitenVersionsgeschichte
+Suche
+  
+Hauptseite
+Themenportale
+Zufälliger Artikel
+Mitmachen
+Artikel verbessern
+Neuen Artikel anlegen
+Autorenportal
+Hilfe
+Letzte Änderungen
+Kontakt
+Spenden
+Werkzeuge
+Links auf diese Seite
+Änderungen an verlinkten Seiten
+Spezialseiten
+Permanenter Link
+Seiten­informationen
+Artikel zitieren
+Wikidata-Datenobjekt
+Drucken/­exportieren
+Als PDF herunterladen
+Druckversion
+In anderen Projekten
+Commons
+
+In anderen Sprachen
+Dansk
+Ελληνικά
+English
+Español
+Français
+Italiano
+Nederlands
+Русский
+Türkçe
+41 weitere
+Links bearbeiten
+Diese Seite wurde zuletzt am 20. Oktober 2021 um 17:46 Uhr bearbeitet.
+Abrufstatistik · Autoren
+
+Der Text ist unter der Lizenz „Creative Commons Attribution/Share Alike“ verfügbar; Informationen zu den Urhebern und zum Lizenzstatus eingebundener Mediendateien (etwa Bilder oder Videos) können im Regelfall durch Anklicken dieser abgerufen werden. Möglicherweise unterliegen die Inhalte jeweils zusätzlichen Bedingungen. Durch die Nutzung dieser Website erklären Sie sich mit den Nutzungsbedingungen und der Datenschutzrichtlinie einverstanden.
+Wikipedia® ist eine eingetragene Marke der Wikimedia Foundation Inc.
+DatenschutzÜber WikipediaImpressumMobile AnsichtEntwicklerStatistikenStellungnahme zu Cookies
+Wikimedia Foundation

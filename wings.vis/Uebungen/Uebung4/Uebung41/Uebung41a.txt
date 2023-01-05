@@ -1,0 +1,20 @@
+ls
+cat ports.policy
+pscp ports.policy Hello.java HelloServer.java HelloInterface.java st191442@rivera.wi.hs-wismar.de:/wistud/wi/st191442/vis/Uebung41/hello_jrmp
+ssh st191442@rivera.wi.hs-wismar.de
+cd /wistud/wi/st191442/vis/Uebung41/hello_jrmp
+javac HelloInterface.java && javac Hello.java && javac HelloServer.java 
+rmic -v1.1 Hello
+rmiregistry -J-Djava.security.policy=ports.policy 8442 &
+java HelloServer 
+
+pscp st191442@rivera.wi.hs-wismar.de:/wistud/wi/st191442/vis/Uebung41/hello_jrmp/Hello.class ./
+pscp st191442@rivera.wi.hs-wismar.de:/wistud/wi/st191442/vis/Uebung41/hello_jrmp/Hello_Stub.class ./
+
+javac HelloClient.java
+java HelloClient
+
+ /usr/lib/jvm/java-8-openjdk-amd64/bin/javac Hello.java
+ /usr/lib/jvm/java-8-openjdk-amd64/bin/javac HelloInterface.java 
+ /usr/lib/jvm/java-8-openjdk-amd64/bin/javac HelloClient.java
+rmic -v1.1 Hello

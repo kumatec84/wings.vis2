@@ -1,0 +1,7 @@
+Inhalt der Textdatei Zeile 1.
+Inhalt der Textdatei Zeile 2.
+Inhalt der Textdatei Zeile 3.
+Inhalt der Textdatei Zeile 4.
+Inhalt der Textdatei Zeile 5.
+Inhalt der Textdatei Zeile 6.
+Inhalt der Textdatei Zeile 7.

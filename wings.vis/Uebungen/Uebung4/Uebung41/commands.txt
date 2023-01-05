@@ -1,0 +1,2 @@
+set PATH=%PATH%;C:\Development\tools\Putty\
+pscp commands.txt st191442@rivera.wi.hs-wismar.de:/wistud/wi/st191442/vis/Uebung41/

@@ -1,0 +1,6 @@
+grant {
+	// Policy-Datei in der die geforderten Port-Berechtigungen gesetzt werden.
+	// Der Server darf an jeder IP Adresse und an allen Ports >= 1099 lauschen.
+	// Es kann also wie gefordert mit Portnummern kleiner 1099 nich gestartet werden.
+	permission java.net.SocketPermission "*:1099-65535", "accept, listen, connect, resolve";    
+};
